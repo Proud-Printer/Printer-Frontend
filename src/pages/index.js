@@ -8,4 +8,9 @@ export default function Home() {
       <Hero />
     </div>
   );
+    <div className='App bg-primary'>
+      <Nav />
+      <Hero />
+    </div>
+  )
 }
