@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import DJComponent from './DJ';
-import ClubberComponent from './Clubber';
+import DJComponent from './Hero/DJ';
+import ClubberComponent from './Hero/Clubber';
 // import MOCKDATA from "./MOCK_DATA.json";
 
 
