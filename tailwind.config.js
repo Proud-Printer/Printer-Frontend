@@ -16,6 +16,8 @@ module.exports = {
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        pacifico: ['Pacifico', 'cursive'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },

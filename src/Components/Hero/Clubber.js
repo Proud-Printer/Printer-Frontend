@@ -19,7 +19,7 @@ export default function ClubberComponent() {
           }}
         />
 
-        <div className="fixed top-0 left-0 bg-slate-100 w-full rounded h-[170px] overflow-y-auto p-3 grid grid-cols-5 gap-4">
+        <div className="fixed top-0 left-0 w-full rounded h-[170px] overflow-y-auto p-3 grid grid-cols-5 gap-4">
           {MOCKDATA.filter((val) => {
             if (searchTerm === '') {
               return null;

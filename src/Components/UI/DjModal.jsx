@@ -63,7 +63,7 @@ const Modal = () => {
                 Clubber
               </h2>
               <button
-                className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
+                className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter"
                 role="button"
                 onClick={() => setModalState({ isDJ: false, isClubber: false })}
               >

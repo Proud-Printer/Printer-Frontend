@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import HeroMusic from "../../assets/hero-music1.png";
+import Button from "@/Snippets/Buttton/Button";
 import { useRecoilState } from "recoil";
 import { modalAtom } from "atoms/modalAtom";
 
@@ -15,20 +16,8 @@ const Hero = () => {
   return (
     <section className="Hero my-28 px-20">
       <div className="container flex justify-center gap-5 mx-auto">
-        <button
-          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
-          role="button"
-          onClick={handleDJ}
-        >
-          DJ
-        </button>
-        <button
-          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
-          role="button"
-          onClick={handleClubber}
-        >
-          Clubber
-        </button>
+        <Button className="" onClick={handleDJ} title={'DJ'} role="button" />
+        <Button className="" onClick={handleClubber} title={'Clubber'} role="button" />
       </div>
       <div className="flex justify-between py-3">
         <div className="text-section max-w-md">
