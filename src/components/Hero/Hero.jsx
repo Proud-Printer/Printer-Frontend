@@ -16,14 +16,14 @@ const Hero = () => {
     <section className="Hero my-28 px-20">
       <div className="container flex justify-center gap-5 mx-auto">
         <button
-          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
+          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter md:block"
           role="button"
           onClick={handleDJ}
         >
           DJ
         </button>
         <button
-          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
+          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter  md:block"
           role="button"
           onClick={handleClubber}
         >
