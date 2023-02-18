@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import DJComponent from "./DJ";
-import ClubberComponent from "./Clubber";
 import Image from "next/image";
 import HeroMusic from "../../assets/hero-music1.png";
+import { useRecoilState } from "recoil";
+import { modalAtom } from "atoms/modalAtom";
 
 const Hero = () => {
-  const [isClubber, setIsClubber] = useState();
-  const [isDJ, setIsDJ] = useState();
-
-  const handleClubber = () => {
-    setIsClubber(true);
-    setIsDJ(false);
+  const [_, setModalState] = useRecoilState(modalAtom);
+  const handleDJ = () => { 
+    setModalState({ isOpen: true, isDJ: true, isClubber: false })
   };
-
-  const handleDJ = () => {
-    setIsDJ(true);
-    setIsClubber(false);
+  const handleClubber = () => { 
+    setModalState({ isOpen: true, isDJ: false, isClubber: true });
   };
   return (
     <section className="Hero my-28 px-20">
@@ -34,10 +29,6 @@ const Hero = () => {
         >
           Clubber
         </button>
-      </div>
-      <div>
-        {isDJ && <DJComponent />}
-        {isClubber && <ClubberComponent />}
       </div>
       <div className="flex justify-between py-3">
         <div className="text-section max-w-md">
