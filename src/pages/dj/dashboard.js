@@ -12,12 +12,6 @@ const dashboard = () => {
     if (!token) {
       router.push('/');
     }
-
-    const fetchUser = async () => {
-      const res = await fetch('/api/dj/me/' + token);
-      const data = await res.json();
-      console.log(data);
-    };
   }, []);
   return (
     <div>

@@ -14,7 +14,7 @@ export const SmallSpinner = () => {
   return (
     <div>
       <div className="flex justify-center items-center">
-        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900 shadow-md"></div>
+        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#FEE715FF] shadow-md"></div>
       </div>
     </div>
   );
