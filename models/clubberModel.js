@@ -6,6 +6,10 @@ const clubberSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    djId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Dj',
+    },
   },
   {
     timestamps: true,
@@ -13,6 +17,6 @@ const clubberSchema = mongoose.Schema(
 );
 
 const Clubber =
-    mongoose.models.Clubber || mongoose.model('Clubber', clubberSchema);
-  
+  mongoose.models.Clubber || mongoose.model('Clubber', clubberSchema);
+
 export default Clubber;

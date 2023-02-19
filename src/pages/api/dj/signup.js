@@ -27,6 +27,7 @@ export default async function handler(req, res) {
       email,
       password: hash,
       isDjOnline: true,
+      clubbers: [],
     });
 
     const savedUser = await newUser.save();
@@ -45,6 +46,7 @@ export default async function handler(req, res) {
         name: savedUser.name,
         email: savedUser.email,
         isDjOnline: true,
+        clubbers: [],
       },
     });
   } catch (error) {

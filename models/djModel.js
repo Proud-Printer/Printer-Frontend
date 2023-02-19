@@ -19,12 +19,10 @@ const djSchema = mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    clubbers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Clubber',
-      },
-    ],
+    clubbers: {
+      type: Array,
+      required: true,
+    },
   },
   {
     timestamps: true,

@@ -18,11 +18,14 @@ export default async function handler(req, res) {
   // create clubber
   const clubber = await Clubber.create({
     song: clubberSong,
+    djId: dj._id,
   });
 
   // add clubber to dj
-    console.log(clubber);
-  dj.clubbers.push(clubber);
+  dj.clubbers.push({
+    song: clubber.song,
+    clubberId: clubber._id,
+  });
   await dj.save();
 
   res.status(200).json(dj);

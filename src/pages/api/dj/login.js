@@ -43,6 +43,7 @@ export default async function handler(req, res) {
             name: user.name,
             email: user.email,
             isDjOnline: true,
+            clubbers: user.clubbers,
           },
         });
       }
