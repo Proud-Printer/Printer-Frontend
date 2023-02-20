@@ -25,6 +25,8 @@ export default async function handler(req, res) {
   dj.clubbers.push({
     song: clubber.song,
     clubberId: clubber._id,
+    isPlayed: false,
+    isFlagged: false,
   });
   await dj.save();
 

@@ -11,18 +11,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: 'Please enter all fields' });
   }
 
-  const filter = { email };
+  const user = await Dj.findOne({ email });
 
-  const coll = Dj.collection;
-
-  const cursor = coll.find(filter);
-  const result = await cursor.toArray();
-
-  if (result.length === 0) {
+  if (!user) {
     return res.status(400).json({ message: 'User does not exist' });
   }
 
-  const user = result[0];
+  user.isDjOnline = true;
+  await user.save();
 
   // Validate password
   bcrypt.compare(password, user.password).then((isMatch) => {
@@ -42,7 +38,7 @@ export default async function handler(req, res) {
             id: user._id,
             name: user.name,
             email: user.email,
-            isDjOnline: true,
+            isDjOnline: user.isDjOnline,
             clubbers: user.clubbers,
           },
         });

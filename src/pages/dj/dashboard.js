@@ -4,12 +4,15 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Cookie from 'universal-cookie';
+import { FaFlag, FaPlay } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const dashboard = () => {
   const [loading, setLoading] = useState(false);
   const cookies = new Cookie();
   const router = useRouter();
   const [djDetails, setDjDetails] = useState({});
+  const [clubberId, setClubberId] = useState('');
 
   useEffect(() => {
     const token = cookies.get('token');
@@ -49,6 +52,44 @@ const dashboard = () => {
     );
   }
 
+  const handlePlay = async (clubberId) => {
+    try {
+      const response = await axios.post(
+        '/api/dj/play',
+        {
+          djId: djDetails._id,
+          clubberId: clubberId,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + cookies.get('token'),
+          },
+        }
+      );
+      if (response.status === 200) {
+        setDjDetails(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFlag = async (clubberId) => {
+    try {
+      const response = await axios.put('/api/dj/flag/' + clubberId, {
+        djId: cookies.get('id'),
+      });
+
+      if (response.status === 200) {
+        setDjDetails(response.data);
+        toast.success('Song flagged successfully');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <Nav />
@@ -75,7 +116,7 @@ const dashboard = () => {
               Welcome {djDetails?.name}!
             </p>
           </div>
-          {djDetails?.isDjOnline ? (
+          {djDetails.isDjOnline ? (
             <button
               className="flex items-center ml-auto gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
           "
@@ -119,17 +160,20 @@ const dashboard = () => {
                   </div>
                   <div className="flex items-center gap-4">
                     <button
-                      className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
+                      className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
                 "
                     >
-                      Add to Queue
+                      Played
+                      <FaPlay />
                     </button>
 
                     <button
-                      className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
+                      className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
                 "
+                      onClick={() => handleFlag(clubber.clubberId)}
                     >
                       Flag as unavailable
+                      <FaFlag />
                     </button>
                   </div>
                 </div>

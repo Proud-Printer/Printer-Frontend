@@ -16,13 +16,11 @@ export default async function handler(req, res) {
   const { me } = req.query;
 
   // Get the user's details based on the id
-  const coll = Dj.collection;
-  const cursor = coll.find({ _id: new ObjectId(me) });
-  const user = await cursor.toArray();
+  const user = await Dj.findById(me);
 
   // If the user exists, return the user's details
   if (user) {
-    res.status(200).json(user[0]);
+    res.status(200).json(user);
   } else {
     res.status(404).json({ message: 'User not found' });
   }

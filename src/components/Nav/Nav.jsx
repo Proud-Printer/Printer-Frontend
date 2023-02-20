@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookie from 'universal-cookie';
 
@@ -6,10 +7,21 @@ const Nav = () => {
   const router = useRouter();
 
   const user = cookies.get('token');
+  const id = cookies.get('id');
 
-  const handleLogout = () => {
-    cookies.remove('token');
-    window.location.href = '/';
+  const handleLogout = async () => {
+    cookies.remove('token', { path: '/' });
+    cookies.remove('id', { path: '/' });
+    cookies.remove('email', { path: '/' });
+
+    axios
+      .put('/api/dj/logout/' + id)
+      .then((res) => {
+        router.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <nav className="w-full shadow-sm">
