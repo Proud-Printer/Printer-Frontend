@@ -21,7 +21,6 @@ const dashboard = () => {
     }
 
     const getDj = async () => {
-      setLoading(true);
       try {
         const response = await axios('/api/dj/me/' + cookies.get('id'), {
           headers: {
@@ -31,9 +30,7 @@ const dashboard = () => {
         });
         if (response.status === 200) {
           setDjDetails(response.data);
-          setLoading(false);
         } else {
-          setLoading(false);
           router.push('/');
         }
       } catch (error) {
@@ -42,6 +39,14 @@ const dashboard = () => {
     };
 
     getDj();
+
+    // Schedule the next data fetch after some time interval
+    const interval = setInterval(() => {
+      getDj();
+    }, 5000); // fetch data every 5 seconds
+
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
