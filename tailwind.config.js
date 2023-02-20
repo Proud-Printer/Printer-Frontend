@@ -22,5 +22,3 @@ module.exports = {
   plugins: [],
 }
 
-// i haven't used tailwind this way before
-// second comment
