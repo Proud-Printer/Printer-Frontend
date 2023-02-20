@@ -1,5 +1,28 @@
-import Button from "@/Snippets/Buttton/Button";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import Cookie from 'universal-cookie';
+
 const Nav = () => {
+  const cookies = new Cookie();
+  const router = useRouter();
+
+  const user = cookies.get('token');
+  const id = cookies.get('id');
+
+  const handleLogout = async () => {
+    cookies.remove('token', { path: '/' });
+    cookies.remove('id', { path: '/' });
+    cookies.remove('email', { path: '/' });
+
+    axios
+      .put('/api/dj/logout/' + id)
+      .then((res) => {
+        router.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <nav className="w-full shadow-sm">
       <div className="py-5 flex justify-between items-center navbar mx-auto px-20">
@@ -13,10 +36,26 @@ const Nav = () => {
             INSTANTTRACKS
           </h2>
         </div>
-        <Button
-          className="hidden md:block font-montserrat"
-          title={'CONTACT US'}
-        />
+        {user ? (
+          <div className="nav-link">
+            <ul className="hidden md:block">
+              <li
+                className="text-xl text-[#fff] font-semibold py-2 px-4 bg-red-500 hover:bg-red-700 cursor-pointer rounded-lg
+              "
+                onClick={handleLogout}
+              >
+                Logout
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <button
+            className="button  rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
+            role="button"
+          >
+            CONTACT US
+          </button>
+        )}
       </div>
     </nav>
   );

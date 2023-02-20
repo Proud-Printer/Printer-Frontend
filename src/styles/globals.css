@@ -44,7 +44,65 @@
   box-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
 }
 
-
 button {
   font-family: 'Inter', sans-serif !important;
+}
+
+.lds__ripple {
+  display: inline-block;
+  position: relative;
+  width: 15px;
+  height: 15px;
+}
+
+.lds__ripple__large {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  position: relative;
+}
+
+.lds__ripple div {
+  position: absolute;
+  border: 5px solid green;
+  opacity: 1;
+  border-radius: 50%;
+  animation: pulse 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds__ripple__large div {
+  position: absolute;
+  border: 10px solid green;
+  opacity: 1;
+  border-radius: 50%;
+  animation: pulseLarge 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds__ripple div:nth-child(2),
+.lds__ripple__large div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes pulseLarge {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }

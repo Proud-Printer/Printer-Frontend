@@ -15,25 +15,25 @@ const Modal = () => {
       onClick={() => setModalState({ isDJ: false, isClubber: false })}
     >
       <div
-        className="w-11/12 md:w-3/4 lg:w-1/2 bg-white rounded shadow-lg z-50 overflow-y-auto transition duration-300 ease-in-out p-3"
+        className="w-11/12 md:w-3/4 lg:w-1/2 bg-[#101820FF] rounded shadow-lg z-50 overflow-y-auto transition duration-300 ease-in-out p-3"
         onClick={(e) => e.stopPropagation()}
       >
         {modalState.isDJ ? (
           <>
             <div
               className="
-            flex items-center justify-between p-2 border-b border-gray-200
+            flex items-center justify-between p-2 border-b border-[#FEE715FF]
             "
             >
               <h2
                 className="
-              text-2xl font-semibold text-[#1A1A1A]
+              text-2xl font-semibold text-[#FEE715FF]
               "
               >
                 DJ
               </h2>
               <button
-                className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter hidden md:block"
+                className="border border-[#FEE715FF] rounded-lg px-5 py-3 font-semibold text-[#FEE715FF] font-inter md:block"
                 role="button"
                 onClick={() => setModalState({ isDJ: false, isClubber: false })}
               >
@@ -52,18 +52,18 @@ const Modal = () => {
           <>
             <div
               className="
-            flex items-center justify-between p-4 border-b border-gray-200
+            flex items-center justify-between p-4 border-b border-[#FEE715FF]
             "
             >
               <h2
                 className="
-              text-2xl font-semibold text-[#1A1A1A]
+              text-2xl font-semibold text-[#FEE715FF]
               "
               >
                 Clubber
               </h2>
               <button
-                className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter"
+                className="border border-[#FEE715FF] rounded-lg px-5 py-3 font-semibold font-inter text-[#FEE715FF] md:block"
                 role="button"
                 onClick={() => setModalState({ isDJ: false, isClubber: false })}
               >

@@ -16,8 +16,20 @@ const Hero = () => {
   return (
     <section className="Hero my-28 px-20">
       <div className="container flex justify-center gap-5 mx-auto">
-        <Button className="" onClick={handleDJ} title={'DJ'} role="button" />
-        <Button className="" onClick={handleClubber} title={'Clubber'} role="button" />
+        <button
+          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter md:block"
+          role="button"
+          onClick={handleDJ}
+        >
+          DJ
+        </button>
+        <button
+          className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter  md:block"
+          role="button"
+          onClick={handleClubber}
+        >
+          Clubber
+        </button>
       </div>
       <div className="flex justify-between py-3">
         <div className="text-section max-w-md">
