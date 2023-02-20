@@ -104,7 +104,8 @@ export default function ClubberComponent() {
           />
         </div>
         <div className="mt-3">
-          <select className="w-full px-3 py-2 text-[#FEE715FF] border rounded-lg focus:outline-none focus:shadow-outline border-[#FEE715FF] bg-transparent placeholder:text-[#FEE715FF]"
+          <select
+            className="w-full px-3 py-2 text-[#FEE715FF] border rounded-lg focus:outline-none focus:shadow-outline border-[#FEE715FF] bg-transparent placeholder:text-[#FEE715FF]"
             onChange={(event) => {
               setDjId(event.target.value);
             }}
@@ -147,7 +148,9 @@ export default function ClubberComponent() {
                   <div
                     className="justify-center text-center mx-auto my-2 w-full flex p-2 rounded bg-[#FEE715FF]"
                     key={key}
-                    onClick={() => requestToDj(djId, val.name)}
+                    onClick={() =>
+                      requestToDj(djId, `${val.name} - ${val.artists[0].name}`)
+                    }
                   >
                     <div
                       className="flex justify-center
