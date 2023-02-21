@@ -35,7 +35,7 @@ export default async function handler(req, res) {
   dj.clubbers[clubberIndex].isPlayed = true;
 
   // find song in clubber collection and delete it
-  const clubber = await Clubber.findById(flag);
+  const clubber = await Clubber.findById(play);
   await clubber.remove();
 
   // remove song from queue
