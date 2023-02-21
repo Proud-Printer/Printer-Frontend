@@ -1,5 +1,5 @@
-import { LargeSpinner } from '@/components/General/Spinner';
-import Nav from '@/components/Nav/Nav';
+import { LargeSpinner } from '../components/General/Spinner';
+import Nav from '../components/Nav/Nav';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
