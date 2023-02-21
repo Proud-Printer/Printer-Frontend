@@ -58,21 +58,13 @@ const dashboard = () => {
 
   const handlePlay = async (clubberId) => {
     try {
-      const response = await axios.post(
-        '/api/dj/play',
-        {
-          djId: djDetails._id,
-          clubberId: clubberId,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + cookies.get('token'),
-          },
-        }
-      );
+      const response = await axios.put('/api/dj/play/' + clubberId, {
+        djId: cookies.get('id'),
+      });
+
       if (response.status === 200) {
         setDjDetails(response.data);
+        toast.success('Song played successfully');
       }
     } catch (error) {
       console.log(error);
@@ -167,6 +159,7 @@ const dashboard = () => {
                       <button
                         className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
                 "
+                        onClick={() => handlePlay(clubber.clubberId)}
                       >
                         Played
                         <FaPlay />

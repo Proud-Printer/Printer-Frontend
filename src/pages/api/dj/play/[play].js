@@ -1,15 +1,13 @@
 import { connectDB } from 'db/connect';
-import Dj from 'models/djModel';
 import Clubber from 'models/clubberModel';
+import Dj from 'models/djModel';
 
 export default async function handler(req, res) {
-  const { flag } = req.query;
+  await connectDB();
   const { djId } = req.body;
+  const { play } = req.query;
 
   // get dj
-  await connectDB();
-
-  // flag song with clubberId
   const getDjById = async () => {
     const dj = Dj.findById(djId);
     return dj;
@@ -22,24 +20,23 @@ export default async function handler(req, res) {
     return res.status(404).json({ message: 'Dj not found' });
   }
 
-  // check if song has already been flagged by dj
-  const song = dj.clubbers.find((clubber) => clubber.clubberId == flag);
+  // check if song has already been played by dj
+  const song = dj.clubbers.find((clubber) => clubber.clubberId == play);
 
-  if (song.isFlagged) {
-    return res.status(400).json({ message: 'Song has already been flagged' });
+  if (song.isPlayed) {
+    return res.status(400).json({ message: 'Song has already been played' });
   }
 
-  // flag song
+  // play song
   const clubberIndex = dj.clubbers.findIndex(
-    (clubber) => clubber.clubberId == flag
+    (clubber) => clubber.clubberId == play
   );
 
-  dj.clubbers[clubberIndex].isFlagged = true;
+  dj.clubbers[clubberIndex].isPlayed = true;
 
   // find song in clubber collection and delete it
   const clubber = await Clubber.findById(flag);
   await clubber.remove();
-
 
   // remove song from queue
   dj.clubbers.splice(clubberIndex, 1);

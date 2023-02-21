@@ -1,15 +1,19 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import HeroMusic from "../../assets/hero-music1.png";
-import { useRecoilState } from "recoil";
-import { modalAtom } from "atoms/modalAtom";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import HeroMusic from '../../assets/hero-music1.png';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { modalAtom } from 'atoms/modalAtom';
+import { disableButtonAtom } from 'atoms/disableButtonAtom';
+import { toast } from 'react-toastify';
 
 const Hero = () => {
   const [_, setModalState] = useRecoilState(modalAtom);
-  const handleDJ = () => { 
-    setModalState({ isOpen: true, isDJ: true, isClubber: false })
+  const disableButton = useRecoilValue(disableButtonAtom);
+
+  const handleDJ = () => {
+    setModalState({ isOpen: true, isDJ: true, isClubber: false });
   };
-  const handleClubber = () => { 
+  const handleClubber = () => {
     setModalState({ isOpen: true, isDJ: false, isClubber: true });
   };
   return (
@@ -25,7 +29,15 @@ const Hero = () => {
         <button
           className="button outline outline-2 rounded-lg px-5 py-3 font-semibold font-inter  md:block"
           role="button"
-          onClick={handleClubber}
+          onClick={
+            disableButton
+              ? () => {
+                  toast.error(
+                    'You can request for another song after 5 minutes'
+                  );
+                }
+              : handleClubber
+          }
         >
           Clubber
         </button>
@@ -33,10 +45,10 @@ const Hero = () => {
       <div className="flex justify-between py-3">
         <div className="text-section max-w-md">
           <h1 className="text-xl md:text-3xl lg:text-6xl font-extrabold font-inter tracking-normal uppercase">
-            A place for{" "}
+            A place for{' '}
             <span className="bg-black rounded-lg text-white leading-normal p-1">
               Classical
-            </span>{" "}
+            </span>{' '}
             Music
           </h1>
           <div className="bg-white rounded-full w-fit py-8 px-5 my-3">

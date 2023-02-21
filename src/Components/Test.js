@@ -1,36 +1,46 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import DJComponent from './Hero/DJ';
 import ClubberComponent from './Hero/Clubber';
-// import MOCKDATA from "./MOCK_DATA.json";
-
+import { useRecoilValue } from 'recoil';
+import { disableButtonAtom } from 'atoms/disableButtonAtom';
+import { toast } from 'react-toastify';
 
 export default function First() {
-    // const [musicChoice, setMusicChoice] = useState('davido')
-    const [isClubber, setIsClubber] = useState()
-    const [isDJ, setIsDJ] = useState()
+  const [isClubber, setIsClubber] = useState();
+  const [isDJ, setIsDJ] = useState();
+  const disableButton = useRecoilValue(disableButtonAtom);
 
+  const handleClubber = () => {
+    setIsClubber(true);
+    setIsDJ(false);
+  };
 
-    const handleClubber = () => {
-        setIsClubber(true)
-        setIsDJ(false)
-    }
-
-    const handleDJ = () => {
-      setIsDJ(true)
-      setIsClubber(false)
-    };
-    return (
-      <>
-        <div className>
-          <button onClick={handleClubber}>Clubber</button>
-          <button onClick={handleDJ}>DJ</button>
-        </div>
-        {isDJ && <DJComponent />}
-        {isClubber && <ClubberComponent />}
-
-        {/* {MOCKDATA.map((val, key) => {
-          return <div>{val.first_name}</div>;
-        })} */}
-      </>
-    );
+  const handleDJ = () => {
+    setIsDJ(true);
+    setIsClubber(false);
+  };
+  return (
+    <>
+      <div className>
+        <button
+          onClick={
+            disableButton
+              ? () =>
+                  toast.error(
+                    'You can request for another song after 5 minutes'
+                  )
+              : handleClubber
+          }
+          disabled={disableButton}
+          // apply cursor not allowed if disableButton is true
+          className={disableButton ? 'cursor-not-allowed' : ''}
+        >
+          Clubber
+        </button>
+        <button onClick={handleDJ}>DJ</button>
+      </div>
+      {isDJ && <DJComponent />}
+      {isClubber && <ClubberComponent />}
+    </>
+  );
 }

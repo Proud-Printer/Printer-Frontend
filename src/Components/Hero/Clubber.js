@@ -3,12 +3,17 @@ import { BiSearchAlt } from 'react-icons/bi';
 import axios from 'axios';
 import Cookie from 'universal-cookie';
 import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
+import { disableButtonAtom } from 'atoms/disableButtonAtom';
+import { modalAtom } from 'atoms/modalAtom';
 
 export default function ClubberComponent() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [djs, setDjs] = useState([]);
+  const [_, setDisableClubberButton] = useRecoilState(disableButtonAtom);
+  const [closeModal, setCloseModal] = useRecoilState(modalAtom);
 
   // clubber details
   const [djId, setDjId] = useState('');
@@ -25,10 +30,21 @@ export default function ClubberComponent() {
       });
       if (response.status === 200) {
         toast.success('Song requested!');
+        setCloseModal({
+          isOpen: false,
+          isDJ: false,
+          isClubber: false,
+        });
+        setDisableClubberButton(true);
+
+        //set disable button to false after 5 minutes
+        setTimeout(() => {
+          setDisableClubberButton(false);
+        }, 300000);
       }
     } catch (error) {
       console.log(error);
-      toast.error('Something went wrong!');
+      toast.error(`${error.response.data.error}, check back after 30 minutes`);
     }
   };
 
@@ -92,14 +108,14 @@ export default function ClubberComponent() {
         <div className="relative focus-within:text-[#FEE715FF] text-[#FEE715FF]">
           <input
             type="text"
-            placeholder="Type in song name. . ."
+            placeholder="Type in song name and click on search icon"
             className="w-full px-3 py-2 text-[#FEE715FF] border rounded-lg focus:outline-none focus:shadow-outline border-[#FEE715FF] bg-transparent placeholder:text-[#FEE715FF]"
             onChange={(event) => {
               setSearchTerm(event.target.value);
             }}
           />
           <BiSearchAlt
-            className="absolute top-3 right-3 text-[#FEE715FF] text-lg"
+            className="absolute top-3 right-3 text-[#FEE715FF] text-lg cursor-pointer"
             onClick={search}
           />
         </div>
@@ -146,7 +162,7 @@ export default function ClubberComponent() {
                 console.log(val);
                 return (
                   <div
-                    className="justify-center text-center mx-auto my-2 w-full flex p-2 rounded bg-[#FEE715FF]"
+                    className="justify-center text-center mx-auto my-2 w-full flex p-2 rounded bg-[#FEE715FF] cursor-pointer hover:bg-[#e9d62a] hover:text-[#101820FF]"
                     key={key}
                     onClick={() =>
                       requestToDj(djId, `${val.name} - ${val.artists[0].name}`)

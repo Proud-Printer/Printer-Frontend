@@ -1,11 +1,13 @@
 import Hero from '@/components/Hero/Hero';
 import Nav from '@/components/Nav/Nav';
 import Modal from '@/components/UI/DjModal';
+import { disableButtonAtom } from 'atoms/disableButtonAtom';
 import { modalAtom } from 'atoms/modalAtom';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import Cookie from 'universal-cookie';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const modalState = useRecoilValue(modalAtom);
@@ -18,7 +20,7 @@ export default function Home() {
       router.push('/dj/dashboard');
     }
   }, []);
-  
+
   return (
     <>
       {modalState.isOpen && <Modal />}
