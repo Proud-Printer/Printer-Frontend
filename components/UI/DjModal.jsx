@@ -5,7 +5,7 @@ import ClubberComponent from '../Hero/Clubber';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
-const Modal = () => {
+const DjModal = () => {
   const [form, setForm] = useState('signup');
   const [modalState, setModalState] = useRecoilState(modalAtom);
   return (
@@ -84,4 +84,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default DjModal;
