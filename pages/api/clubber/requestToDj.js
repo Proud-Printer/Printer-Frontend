@@ -15,6 +15,17 @@ export default async function handler(req, res) {
 
   const dj = await getDjById();
 
+  // song already requested for can be requested again after 30 minutes (1800000 milliseconds) throw error
+  const isSongRequested = dj.clubbers.find(
+    (clubber) => clubber.song === clubberSong
+  );
+
+  if (isSongRequested) {
+    return res.status(400).json({
+      error: 'Song already requested',
+    });
+  }
+
   // create clubber
   const clubber = await Clubber.create({
     song: clubberSong,

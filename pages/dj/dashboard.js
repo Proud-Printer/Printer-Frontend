@@ -1,5 +1,5 @@
-import { LargeSpinner } from '@/components/General/Spinner';
-import Nav from '@/components/Nav/Nav';
+import { LargeSpinner } from '../../components/General/Spinner';
+import Nav from '../../components/Nav/Nav';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,6 @@ const dashboard = () => {
   const cookies = new Cookie();
   const router = useRouter();
   const [djDetails, setDjDetails] = useState({});
-  const [clubberId, setClubberId] = useState('');
 
   useEffect(() => {
     const token = cookies.get('token');
@@ -59,21 +58,13 @@ const dashboard = () => {
 
   const handlePlay = async (clubberId) => {
     try {
-      const response = await axios.post(
-        '/api/dj/play',
-        {
-          djId: djDetails._id,
-          clubberId: clubberId,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + cookies.get('token'),
-          },
-        }
-      );
+      const response = await axios.put('/api/dj/play/' + clubberId, {
+        djId: cookies.get('id'),
+      });
+
       if (response.status === 200) {
         setDjDetails(response.data);
+        toast.success('Song played successfully');
       }
     } catch (error) {
       console.log(error);
@@ -153,37 +144,46 @@ const dashboard = () => {
                 Here are the list of songs requested by the audience
               </h2>
             </header>
-            <div>
-              {djDetails?.clubbers?.map((clubber) => (
-                <div className="flex items-center justify-between w-full h-16 px-4 mt-4 bg-[#FEE715FF] rounded-md">
-                  <div className="flex items-center gap-4">
-                    <div>
-                      <p className="text-base font-medium text-[#101820FF]">
-                        {clubber.song}
-                      </p>
+            {djDetails?.clubbers?.length > 0 ? (
+              <div>
+                {djDetails?.clubbers?.map((clubber) => (
+                  <div className="flex items-center justify-between w-full h-16 px-4 mt-4 bg-[#FEE715FF] rounded-md">
+                    <div className="flex items-center gap-4">
+                      <div>
+                        <p className="text-base font-medium text-[#101820FF]">
+                          {clubber.song}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <button
+                        className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
+                "
+                        onClick={() => handlePlay(clubber.clubberId)}
+                      >
+                        Played
+                        <FaPlay />
+                      </button>
+
+                      <button
+                        className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
+                "
+                        onClick={() => handleFlag(clubber.clubberId)}
+                      >
+                        Flag as unavailable
+                        <FaFlag />
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <button
-                      className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
-                "
-                    >
-                      Played
-                      <FaPlay />
-                    </button>
-
-                    <button
-                      className="flex items-center gap-4 px-4 py-2 text-sm font-medium text-[#101820FF] bg-[#FEE715FF] rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary border border-black
-                "
-                      onClick={() => handleFlag(clubber.clubberId)}
-                    >
-                      Flag as unavailable
-                      <FaFlag />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-full h-16 mt-4 bg-[#FEE715FF] rounded-md">
+                <p className="text-base font-medium text-[#101820FF]">
+                  No songs requested yet
+                </p>
+              </div>
+            )}
           </div>
         </main>
       </div>

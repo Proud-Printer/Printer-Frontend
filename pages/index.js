@@ -1,6 +1,6 @@
-import Hero from '@/components/Hero/Hero';
-import Nav from '@/components/Nav/Nav';
-import Modal from '@/components/UI/DjModal';
+import Hero from '../components/Hero/Hero';
+import Nav from '../components/Nav/Nav';
+import Modal from '../components/UI/DjModal';
 import { modalAtom } from 'atoms/modalAtom';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ export default function Home() {
       router.push('/dj/dashboard');
     }
   }, []);
-  
+
   return (
     <>
       {modalState.isOpen && <Modal />}

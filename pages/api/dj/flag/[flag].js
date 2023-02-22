@@ -1,5 +1,6 @@
 import { connectDB } from 'db/connect';
 import Dj from 'models/djModel';
+import Clubber from 'models/clubberModel';
 
 export default async function handler(req, res) {
   const { flag } = req.query;
@@ -34,6 +35,11 @@ export default async function handler(req, res) {
   );
 
   dj.clubbers[clubberIndex].isFlagged = true;
+
+  // find song in clubber collection and delete it
+  const clubber = await Clubber.findById(flag);
+  await clubber.remove();
+
 
   // remove song from queue
   dj.clubbers.splice(clubberIndex, 1);
