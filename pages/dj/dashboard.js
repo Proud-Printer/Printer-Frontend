@@ -12,6 +12,7 @@ const dashboard = () => {
   const cookies = new Cookie();
   const router = useRouter();
   const [djDetails, setDjDetails] = useState({});
+  const [drop, setDrop] = useState(false);
 
   useEffect(() => {
     const token = cookies.get('token');
@@ -65,6 +66,7 @@ const dashboard = () => {
       if (response.status === 200) {
         setDjDetails(response.data);
         toast.success('Song played successfully');
+        setDrop(true);
       }
     } catch (error) {
       console.log(error);
@@ -80,6 +82,7 @@ const dashboard = () => {
       if (response.status === 200) {
         setDjDetails(response.data);
         toast.success('Song flagged successfully');
+        setDrop(true);
       }
     } catch (error) {
       console.log(error);
@@ -147,7 +150,7 @@ const dashboard = () => {
             {djDetails?.clubbers?.length > 0 ? (
               <div>
                 {djDetails?.clubbers?.map((clubber) => (
-                  <div className="flex items-center justify-between w-full h-16 px-4 mt-4 bg-[#FEE715FF] rounded-md">
+                  <div className={`flex items-center justify-between w-full h-16 px-4 mt-4 bg-[#FEE715FF] rounded-md ${drop && 'drop__animate'}`}>
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="text-base font-medium text-[#101820FF]">
