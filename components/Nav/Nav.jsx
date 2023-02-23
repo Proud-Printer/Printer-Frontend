@@ -24,16 +24,16 @@ const Nav = () => {
       });
   };
   return (
-    <nav className="w-full shadow-sm">
+    <nav className="w-full shadow-sm bg-primary">
       <div className="py-5 flex justify-between items-center navbar mx-auto px-20">
         <div className="nav-link">
           <ul className="hidden md:block">
-            <li className="text-xl font-semibold">Home</li>
+            <li className="text-xl font-semibold font-montserrat">Home</li>
           </ul>
         </div>
         <div className="logo justify-center">
-          <h2 className="text-black font-inter font-black text-4xl">
-            OPERATIC
+          <h2 className="italic font-pacifico font-black text-2xl md:text-4xl mx-auto">
+            INSTANTTRACKS
           </h2>
         </div>
         {user ? (
