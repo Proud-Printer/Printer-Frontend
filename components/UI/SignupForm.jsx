@@ -65,7 +65,7 @@ const SignupForm = ({ setForm }) => {
           </h2>
           <button
             onClick={() => setForm('login')}
-            className="border border-[#d2601a] text-[#FEE715FF] rounded-lg px-5 py-2 font-semibold font-inter md:block"
+            className="border border-[#FEE715FF] text-[#FEE715FF] rounded-lg px-5 py-2 font-semibold font-inter md:block"
           >
             Login
           </button>
