@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Image from 'next/image';
 import HeroMusic from '../../assets/hero-music1.png';
 import { useRecoilState, useRecoilValue } from 'recoil';
